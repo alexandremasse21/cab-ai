@@ -49,8 +49,17 @@ jobs:
       - name: Download Foundry installer
         run: curl -L https://foundry.paradigm.xyz | bash
 
+      - name: Debug Foundry files
+        run: ls -la ~/.foundry/bin || echo "No foundry folder yet"
+
       - name: Install Foundry with foundryup
-        run: ~/.foundry/bin/foundryup
+        run: |
+          if [ -f ~/.foundry/bin/foundryup ]; then
+            ~/.foundry/bin/foundryup install
+          else
+            echo "foundryup not found"
+            exit 1
+          fi
 
       - name: Add Foundry to PATH
         run: echo "$HOME/.foundry/bin" >> $GITHUB_PATH
@@ -88,8 +97,17 @@ jobs:
       - name: Download Foundry installer
         run: curl -L https://foundry.paradigm.xyz | bash
 
+      - name: Debug Foundry files
+        run: ls -la ~/.foundry/bin || echo "No foundry folder yet"
+
       - name: Install Foundry with foundryup
-        run: ~/.foundry/bin/foundryup
+        run: |
+          if [ -f ~/.foundry/bin/foundryup ]; then
+            ~/.foundry/bin/foundryup install
+          else
+            echo "foundryup not found"
+            exit 1
+          fi
 
       - name: Add Foundry to PATH
         run: echo "$HOME/.foundry/bin" >> $GITHUB_PATH
