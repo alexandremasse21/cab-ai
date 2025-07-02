@@ -49,8 +49,7 @@ jobs:
       - name: Install Foundry
         run: |
           curl -L https://foundry.paradigm.xyz | bash
-          source ~/.bashrc
-          foundryup
+          ~/.foundry/bin/foundryup
 
       - name: Run forge fmt check
         run: forge fmt --check
@@ -85,8 +84,7 @@ jobs:
       - name: Install Foundry
         run: |
           curl -L https://foundry.paradigm.xyz | bash
-          source ~/.bashrc
-          foundryup
+          ~/.foundry/bin/foundryup
 
       - name: Run tests
         run: forge test
