@@ -39,30 +39,6 @@ jobs:
       - name: Run mypy
         run: mypy .
 
-  solidity-lint:
-    name: Solidity Linting
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Create directory for foundryup
-        run: mkdir -p $HOME/.foundry/bin
-
-      - name: Download foundryup binary directly
-        run: |
-          curl -L -o $HOME/.foundry/bin/foundryup https://github.com/foundry-rs/foundry/releases/latest/download/foundryup-x86_64-unknown-linux-gnu
-          chmod +x $HOME/.foundry/bin/foundryup
-
-      - name: Install Foundry
-        run: ~/.foundry/bin/foundryup install
-
-      - name: Add Foundry to PATH
-        run: echo "$HOME/.foundry/bin" >> $GITHUB_PATH
-
-      - name: Run forge fmt check
-        run: forge fmt --check
-
   python-tests:
     name: Python Tests
     runs-on: ubuntu-latest
@@ -83,6 +59,19 @@ jobs:
       - name: Run tests
         run: pytest
 
+  solidity-lint:
+    name: Solidity Linting
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+
+      - name: Run forge fmt check
+        run: forge fmt --check
+
   solidity-tests:
     name: Solidity Tests
     runs-on: ubuntu-latest
@@ -90,19 +79,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Create directory for foundryup
-        run: mkdir -p $HOME/.foundry/bin
-
-      - name: Download foundryup binary directly
-        run: |
-          curl -L -o $HOME/.foundry/bin/foundryup https://github.com/foundry-rs/foundry/releases/latest/download/foundryup-x86_64-unknown-linux-gnu
-          chmod +x $HOME/.foundry/bin/foundryup
-
       - name: Install Foundry
-        run: ~/.foundry/bin/foundryup install
-
-      - name: Add Foundry to PATH
-        run: echo "$HOME/.foundry/bin" >> $GITHUB_PATH
+        uses: foundry-rs/foundry-toolchain@v1
 
       - name: Run tests
         run: forge test
