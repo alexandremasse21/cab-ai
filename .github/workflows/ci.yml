@@ -46,20 +46,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Download Foundry installer
-        run: curl -L https://foundry.paradigm.xyz | bash
+      - name: Create directory for foundryup
+        run: mkdir -p $HOME/.foundry/bin
 
-      - name: Debug Foundry files
-        run: ls -la ~/.foundry/bin || echo "No foundry folder yet"
-
-      - name: Install Foundry with foundryup
+      - name: Download foundryup binary directly
         run: |
-          if [ -f ~/.foundry/bin/foundryup ]; then
-            ~/.foundry/bin/foundryup install
-          else
-            echo "foundryup not found"
-            exit 1
-          fi
+          curl -L -o $HOME/.foundry/bin/foundryup https://github.com/foundry-rs/foundry/releases/latest/download/foundryup-x86_64-unknown-linux-gnu
+          chmod +x $HOME/.foundry/bin/foundryup
+
+      - name: Install Foundry
+        run: ~/.foundry/bin/foundryup install
 
       - name: Add Foundry to PATH
         run: echo "$HOME/.foundry/bin" >> $GITHUB_PATH
@@ -94,20 +90,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Download Foundry installer
-        run: curl -L https://foundry.paradigm.xyz | bash
+      - name: Create directory for foundryup
+        run: mkdir -p $HOME/.foundry/bin
 
-      - name: Debug Foundry files
-        run: ls -la ~/.foundry/bin || echo "No foundry folder yet"
-
-      - name: Install Foundry with foundryup
+      - name: Download foundryup binary directly
         run: |
-          if [ -f ~/.foundry/bin/foundryup ]; then
-            ~/.foundry/bin/foundryup install
-          else
-            echo "foundryup not found"
-            exit 1
-          fi
+          curl -L -o $HOME/.foundry/bin/foundryup https://github.com/foundry-rs/foundry/releases/latest/download/foundryup-x86_64-unknown-linux-gnu
+          chmod +x $HOME/.foundry/bin/foundryup
+
+      - name: Install Foundry
+        run: ~/.foundry/bin/foundryup install
 
       - name: Add Foundry to PATH
         run: echo "$HOME/.foundry/bin" >> $GITHUB_PATH
