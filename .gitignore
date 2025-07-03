@@ -1,1 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+Pipfile.lock
+
+# Node
+node_modules/
+
+# Environment variables
 .env
+
+# Foundry build output
+out/
+cache/
