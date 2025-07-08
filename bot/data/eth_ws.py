@@ -26,8 +26,8 @@ SUB_SWAP_LOGS = {
         "logs",
         {
             "address": [
-                "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",  # Uniswap V2 Factory
-                "0xE592427A0AEce92De3Edee1F18E0157C05861564",  # Uniswap V3 Router
+                "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",  # Uniswap V2
+                "0xE592427A0AEce92De3Edee1F18E0157C05861564",  # Uniswap V3
             ],
         },
     ],
