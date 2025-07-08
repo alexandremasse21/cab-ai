@@ -1,8 +1,9 @@
 import asyncio
 import json
+import os
+
 import websockets
 from dotenv import load_dotenv
-import os
 
 load_dotenv()
 
