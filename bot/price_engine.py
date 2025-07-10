@@ -1,9 +1,10 @@
 import asyncio
-from web3 import Web3
-from dex.uniswap_v3 import UniswapV3Adapter
-from dex.sushiswap import SushiAdapter
-from dotenv import load_dotenv
 import os
+
+from dex.sushiswap import SushiAdapter
+from dex.uniswap_v3 import UniswapV3Adapter
+from dotenv import load_dotenv
+from web3 import Web3
 
 # Token addresses (Ethereum mainnet)
 WETH = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
@@ -18,6 +19,7 @@ load_dotenv()
 RPC_URL = os.getenv("RPC_URL")
 web3 = Web3(Web3.HTTPProvider(RPC_URL))
 
+
 async def main():
     u = UniswapV3Adapter(web3)
     s = SushiAdapter(web3)
@@ -29,6 +31,7 @@ async def main():
     print("Uniswap:", quote_uni, "USDC")  # déjà float en USDC
 
     print("SushiSwap:", Web3.from_wei(quote_sushi, "mwei"), "USDC")
+
 
 if __name__ == "__main__":
     asyncio.run(main())

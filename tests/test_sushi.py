@@ -1,11 +1,10 @@
-import asyncio
-import pytest
-from web3 import Web3
-from bot.dex.sushiswap import SushiAdapter
 import os
 import pytest
 from dotenv import load_dotenv
+from web3 import Web3
 from web3.exceptions import ContractLogicError
+
+from bot.dex.sushiswap import SushiAdapter
 
 load_dotenv()
 
@@ -19,19 +18,22 @@ AMOUNT = Web3.to_wei(1, "ether")
 
 pytestmark = pytest.mark.asyncio  # Applique asyncio à toutes les fonctions ici
 
+
 async def test_uniswap_price():
     adapter = SushiAdapter(web3)
     price = await adapter.get_price(WETH, USDC, AMOUNT)
     assert price is not None
     assert price > 0
     print(f"Uniswap price: {price:.2f} USDC")
-    
+
+
 @pytest.mark.asyncio
 async def test_sushi_invalid_token_addresses():
     adapter = SushiAdapter(web3)
     invalid_token = "0x0000000000000000000000000000000000000000"
     with pytest.raises(Exception):
         await adapter.get_price(invalid_token, invalid_token, 1000)
+
 
 @pytest.mark.asyncio
 async def test_sushi_zero_amount():
@@ -45,6 +47,7 @@ async def test_sushi_zero_amount():
 
     assert "INSUFFICIENT_INPUT_AMOUNT" in str(excinfo.value)
 
+
 @pytest.mark.asyncio
 async def test_sushi_large_amount():
     adapter = SushiAdapter(web3)
@@ -53,6 +56,7 @@ async def test_sushi_large_amount():
     large_amount = 10**30
     price = await adapter.get_price(WETH, USDC, large_amount)
     assert price is None or price > 0
+
 
 @pytest.mark.asyncio
 async def test_sushi_unsupported_pair():

@@ -1,9 +1,11 @@
 import asyncio
-from web3 import Web3
-from bot.dex.uniswap_v3 import UniswapV3Adapter
-from bot.dex.sushiswap import SushiAdapter
 import os
+
 from dotenv import load_dotenv
+from web3 import Web3
+
+from bot.dex.sushiswap import SushiAdapter
+from bot.dex.uniswap_v3 import UniswapV3Adapter
 
 # Charger les variables d’environnement (.env)
 load_dotenv()
@@ -19,6 +21,7 @@ AMOUNT = Web3.to_wei(1, "ether")
 
 # Connexion au réseau Ethereum
 web3 = Web3(Web3.HTTPProvider(INFURA_HTTP))
+
 
 async def main():
     print("🔎 Testing price quote for 1 WETH → USDC...\n")
@@ -47,6 +50,7 @@ async def main():
 
         except Exception as e:
             print(f"{adapter.__class__.__name__:<20}: ❌ Error - {e}")
+
 
 if __name__ == "__main__":
     asyncio.run(main())

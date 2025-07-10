@@ -1,10 +1,9 @@
-import asyncio
-import pytest
-from web3 import Web3
-from bot.dex.uniswap_v3 import UniswapV3Adapter
 import os
-from dotenv import load_dotenv
 import pytest
+from dotenv import load_dotenv
+from web3 import Web3
+
+from bot.dex.uniswap_v3 import UniswapV3Adapter
 
 load_dotenv()
 
@@ -18,19 +17,22 @@ AMOUNT = Web3.to_wei(1, "ether")
 
 pytestmark = pytest.mark.asyncio  # Applique asyncio à toutes les fonctions ici
 
+
 async def test_uniswap_price():
     adapter = UniswapV3Adapter(web3)
     price = await adapter.get_price(WETH, USDC, AMOUNT)
     assert price is not None
     assert price > 0
     print(f"Uniswap price: {price:.2f} USDC")
-    
+
+
 @pytest.mark.asyncio
 async def test_uniswap_invalid_token_addresses():
     adapter = UniswapV3Adapter(web3)
     invalid_token = "0x0000000000000000000000000000000000000000"
     price = await adapter.get_price(invalid_token, invalid_token, 1000)
     assert price is None or price == 0  # ou selon ce que votre code renvoie
+
 
 @pytest.mark.asyncio
 async def test_uniswap_zero_amount():
@@ -41,6 +43,7 @@ async def test_uniswap_zero_amount():
     price = await adapter.get_price(WETH, USDC, amount)
     assert price == 0 or price is None
 
+
 @pytest.mark.asyncio
 async def test_uniswap_large_amount():
     adapter = UniswapV3Adapter(web3)
@@ -50,6 +53,7 @@ async def test_uniswap_large_amount():
     price = await adapter.get_price(WETH, USDC, large_amount)
     # Price should be positive or None (graceful failure)
     assert price is None or price > 0
+
 
 @pytest.mark.asyncio
 async def test_uniswap_unsupported_pair():
