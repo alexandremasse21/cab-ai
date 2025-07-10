@@ -17,6 +17,7 @@ isort = "*"
 flake8 = "*"
 mypy = "*"
 pytest = "*"
+pytest-asyncio = "*"
 
 [requires]
 python_version = "3.12"
