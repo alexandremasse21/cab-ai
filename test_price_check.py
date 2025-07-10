@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 from web3 import Web3
 
-from bot.dex.sushiswap import SushiAdapter
+from bot.dex.sushi import SushiAdapter
 from bot.dex.uniswap_v3 import UniswapV3Adapter
 
 # Charger les variables d’environnement (.env)
