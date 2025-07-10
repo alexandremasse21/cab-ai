@@ -27,7 +27,6 @@ async def test_uniswap_price():
     print(f"Uniswap price: {price:.2f} USDC")
 
 
-@pytest.mark.asyncio
 async def test_uniswap_invalid_token_addresses():
     adapter = UniswapV3Adapter(web3)
     invalid_token = "0x0000000000000000000000000000000000000000"
@@ -35,7 +34,6 @@ async def test_uniswap_invalid_token_addresses():
     assert price is None or price == 0  # ou selon ce que votre code renvoie
 
 
-@pytest.mark.asyncio
 async def test_uniswap_zero_amount():
     adapter = UniswapV3Adapter(web3)
     WETH = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
@@ -45,7 +43,6 @@ async def test_uniswap_zero_amount():
     assert price == 0 or price is None
 
 
-@pytest.mark.asyncio
 async def test_uniswap_large_amount():
     adapter = UniswapV3Adapter(web3)
     WETH = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
@@ -56,7 +53,6 @@ async def test_uniswap_large_amount():
     assert price is None or price > 0
 
 
-@pytest.mark.asyncio
 async def test_uniswap_unsupported_pair():
     adapter = UniswapV3Adapter(web3)
     FAKE_TOKEN = "0x1111111111111111111111111111111111111111"

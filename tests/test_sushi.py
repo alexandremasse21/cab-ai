@@ -28,7 +28,6 @@ async def test_uniswap_price():
     print(f"Uniswap price: {price:.2f} USDC")
 
 
-@pytest.mark.asyncio
 async def test_sushi_invalid_token_addresses():
     adapter = SushiAdapter(web3)
     invalid_token = "0x0000000000000000000000000000000000000000"
@@ -36,7 +35,6 @@ async def test_sushi_invalid_token_addresses():
         await adapter.get_price(invalid_token, invalid_token, 1000)
 
 
-@pytest.mark.asyncio
 async def test_sushi_zero_amount():
     adapter = SushiAdapter(web3)
     WETH = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
@@ -49,7 +47,6 @@ async def test_sushi_zero_amount():
     assert "INSUFFICIENT_INPUT_AMOUNT" in str(excinfo.value)
 
 
-@pytest.mark.asyncio
 async def test_sushi_large_amount():
     adapter = SushiAdapter(web3)
     WETH = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
@@ -59,7 +56,6 @@ async def test_sushi_large_amount():
     assert price is None or price > 0
 
 
-@pytest.mark.asyncio
 async def test_sushi_unsupported_pair():
     adapter = SushiAdapter(web3)
     FAKE_TOKEN = "0x1111111111111111111111111111111111111111"
