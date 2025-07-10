@@ -13,9 +13,7 @@ class UniswapV3Adapter:
         self.quoter_address = Web3.to_checksum_address(
             "0x61fFE014bA17989E743c5F6cB21bF9697530B21e"
         )
-        self.contract = self.web3.eth.contract(
-            address=self.quoter_address,
-            abi=abi)
+        self.contract = self.web3.eth.contract(address=self.quoter_address, abi=abi)
 
     async def get_price(self, token_in, token_out, amount_in_wei):
         print("\n🔍 Debugging UniswapV3Adapter:")
@@ -37,9 +35,7 @@ class UniswapV3Adapter:
             }
 
             print(f"- Using struct params: {params}")
-            result = self.contract.functions.quoteExactInputSingle(
-                params
-                ).call()
+            result = self.contract.functions.quoteExactInputSingle(params).call()
             print(f"✅ Result: {result} (raw)")
 
             amount_out = result[0]

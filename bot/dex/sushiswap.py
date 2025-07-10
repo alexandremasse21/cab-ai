@@ -16,15 +16,9 @@ with open("abi/UniswapV2Router02.json") as f:
 class SushiAdapter(DexAdapter):
     def __init__(self, web3: Web3):
         self.web3 = web3
-        self.router = web3.eth.contract(
-            address=SUSHI_ROUTER,
-            abi=ABI)
+        self.router = web3.eth.contract(address=SUSHI_ROUTER, abi=ABI)
 
     async def get_price(self, token_in, token_out, amount_in_wei):
-        path = [
-            Web3.to_checksum_address(token_in),
-            Web3.to_checksum_address(token_out)]
-        amounts = self.router.functions.getAmountsOut(
-            amount_in_wei,
-            path).call()
+        path = [Web3.to_checksum_address(token_in), Web3.to_checksum_address(token_out)]
+        amounts = self.router.functions.getAmountsOut(amount_in_wei, path).call()
         return amounts[-1]
