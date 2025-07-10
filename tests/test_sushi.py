@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from web3 import Web3
 from web3.exceptions import ContractLogicError
 
-from bot.dex.sushi import SushiAdapter
+from bot.dex.sushiswap import SushiAdapter
 
 load_dotenv()
 
