@@ -41,7 +41,7 @@ class UniswapV3Adapter:
             amount_out = result[0]
             print(f"💡 amountOut: {amount_out}")
 
-            return float(amount_out) / 1e6  # USDC has 6 decimals
+            return amount_out
 
         except Exception as e:
             print(f"❌ Exception occurred: {e}")
