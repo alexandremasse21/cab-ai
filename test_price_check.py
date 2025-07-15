@@ -4,8 +4,7 @@ import os
 from dotenv import load_dotenv
 from web3 import Web3
 
-from bot.cache.quote_cache import (cache_quote,  # ✅ Ajout du cache
-                                   get_cached_quote)
+from bot.cache.quote_cache import cache_quote, get_cached_quote  # ✅ Ajout du cache
 from bot.dex.sushiswap import SushiAdapter
 from bot.dex.uniswap_v3 import UniswapV3Adapter
 from bot.quote.schema import normalize_quote
