@@ -1,5 +1,7 @@
 import time
+
 from bot.quote.schema import normalize_quote
+
 
 def test_normalize_quote_basic():
     quote = normalize_quote(
@@ -9,7 +11,7 @@ def test_normalize_quote_basic():
         amount_in=10**18,
         amount_out=3005123456,  # in micro USDC (6 decimals)
         decimals_out=6,
-        gas_used=None
+        gas_used=None,
     )
 
     assert quote["pair"] == "WETH/USDC"
@@ -28,7 +30,7 @@ def test_normalize_quote_with_gas():
         amount_in=10**18,
         amount_out=2999123456,
         decimals_out=6,
-        gas_used=94000
+        gas_used=94000,
     )
 
     assert quote["dex"] == "SushiAdapter"

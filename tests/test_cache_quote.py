@@ -1,5 +1,7 @@
 import time
+
 from bot.cache.quote_cache import cache_quote, get_cached_quote
+
 
 def test_cache_quote_basic():
     pair = "WETH/USDC"
@@ -17,4 +19,3 @@ def test_cache_quote_basic():
     time.sleep(6)
     expired = get_cached_quote(pair, dex)
     assert expired is None, "La valeur devrait avoir expiré après 5s"
-    
