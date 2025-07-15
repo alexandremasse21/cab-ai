@@ -56,10 +56,14 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt pytest
+          pip install pipenv
+          pipenv install --dev
+
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$PWD" >> $GITHUB_ENV
 
       - name: Run tests
-        run: pytest
+        run: pipenv run pytest
 
   solidity-lint:
     name: Solidity Linting
