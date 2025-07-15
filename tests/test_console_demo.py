@@ -1,12 +1,7 @@
 import pytest
-import asyncio
-import sys
-import os
-
-# 👇 Ajoute la racine du projet au PYTHONPATH
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from scripts.show_spreads import fetch_quotes
+
 
 @pytest.mark.asyncio
 async def test_fetch_quotes_returns_data():

@@ -2,14 +2,12 @@
 
 import asyncio
 import os
-import time
+
 from dotenv import load_dotenv
 from web3 import Web3
 
-from bot.dex.uniswap_v3 import UniswapV3Adapter
 from bot.dex.sushiswap import SushiAdapter
-from bot.quote.schema import normalize_quote
-
+from bot.dex.uniswap_v3 import UniswapV3Adapter
 
 load_dotenv()
 
@@ -18,19 +16,35 @@ INFURA_URL = f"https://mainnet.infura.io/v3/{INFURA_KEY}"
 web3 = Web3(Web3.HTTPProvider(INFURA_URL))
 
 TOKENS = [
-    ("WETH", "USDC", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", "0xA0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"),
-    ("WETH", "DAI",  "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", "0x6B175474E89094C44Da98b954EedeAC495271d0F"),
-    ("DAI",  "USDC", "0x6B175474E89094C44Da98b954EedeAC495271d0F", "0xA0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"),
+    (
+        "WETH",
+        "USDC",
+        "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+        "0xA0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+    ),
+    (
+        "WETH",
+        "DAI",
+        "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+        "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+    ),
+    (
+        "DAI",
+        "USDC",
+        "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+        "0xA0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+    ),
 ]
 
 AMOUNT_IN = Web3.to_wei(1, "ether")
+
 
 async def fetch_quotes():
     adapters = [
         UniswapV3Adapter(web3),
         SushiAdapter(web3),
     ]
-    
+
     quotes = []
 
     # Iterate over all token pairs
@@ -61,11 +75,12 @@ async def fetch_quotes():
                         quotes.append(quote)
 
                 except Exception as e:
-                    # Optional: print(f"[⚠️] Error on {symbol_in}/{symbol_out}: {e}")
+                    print(f"[⚠️] Error on {symbol_in}/{symbol_out}: {e}")
                     continue
 
     # ✅ Moved OUTSIDE the loop to return all results
     return sorted(quotes, key=lambda x: abs(x["spread"]), reverse=True)
+
 
 async def main_loop():
     while True:
@@ -77,6 +92,7 @@ async def main_loop():
             print(f"{q['pair']} | {q['from']} → {q['to']} | Spread: {q['spread']:.2f}%")
 
         await asyncio.sleep(1)
+
 
 if __name__ == "__main__":
     asyncio.run(main_loop())

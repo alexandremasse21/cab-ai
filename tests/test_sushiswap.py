@@ -1,6 +1,9 @@
-import pytest
 from unittest.mock import MagicMock
+
+import pytest
+
 from bot.dex.sushiswap import SushiAdapter
+
 
 @pytest.mark.asyncio
 async def test_sushi_get_price_mock():
@@ -10,7 +13,7 @@ async def test_sushi_get_price_mock():
     # Simule un retour pour getAmountsOut: 1 ETH => 2995.12 USDC (6 décimales)
     mock_contract.functions.getAmountsOut.return_value.call.return_value = [
         1_000_000_000_000_000_000,  # input
-        2_995_120_000,              # output
+        2_995_120_000,  # output
     ]
     mock_web3.eth.contract.return_value = mock_contract
 

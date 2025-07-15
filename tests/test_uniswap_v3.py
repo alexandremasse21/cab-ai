@@ -1,7 +1,10 @@
 # Run: pipenv run pytest tests/test_uniswap_v3.py
-import pytest
 from unittest.mock import MagicMock
+
+import pytest
+
 from bot.dex.uniswap_v3 import UniswapV3Adapter
+
 
 @pytest.mark.asyncio
 async def test_uniswap_get_price_mock():
@@ -12,7 +15,9 @@ async def test_uniswap_get_price_mock():
     mock_quote = [3_000_000, 0, 0, 0]  # ← important : 3_000_000 / 1e6 = 3.0
 
     # Simule le contrat et sa méthode
-    mock_contract.functions.quoteExactInputSingle.return_value.call.return_value = mock_quote
+    mock_contract.functions.quoteExactInputSingle.return_value.call.return_value = (
+        mock_quote
+    )
     mock_web3.eth.contract.return_value = mock_contract
 
     adapter = UniswapV3Adapter(mock_web3)

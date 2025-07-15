@@ -1,11 +1,11 @@
 import asyncio
 import os
 
+from dotenv import load_dotenv
+from web3 import Web3
 
 from bot.dex.sushiswap import SushiAdapter
 from bot.dex.uniswap_v3 import UniswapV3Adapter
-from dotenv import load_dotenv
-from web3 import Web3
 
 # Token addresses (Ethereum mainnet)
 WETH = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"

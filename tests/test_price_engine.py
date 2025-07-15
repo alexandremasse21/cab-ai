@@ -1,9 +1,8 @@
 # Run: pipenv run pytest tests/test_price_engine.py
-import pytest
-import asyncio
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import AsyncMock, MagicMock
 
-from bot.price_engine import amount_in, WETH, USDC
+import pytest
+
 
 @pytest.mark.asyncio
 async def test_price_engine_main(monkeypatch, capsys):
@@ -16,8 +15,12 @@ async def test_price_engine_main(monkeypatch, capsys):
     mock_sushi_adapter.get_price = AsyncMock(return_value=3001000)  # 6 décimales (USDC)
 
     # Monkeypatch les adaptateurs
-    monkeypatch.setattr("bot.price_engine.UniswapV3Adapter", lambda web3: mock_uni_adapter)
-    monkeypatch.setattr("bot.price_engine.SushiAdapter", lambda web3: mock_sushi_adapter)
+    monkeypatch.setattr(
+        "bot.price_engine.UniswapV3Adapter", lambda web3: mock_uni_adapter
+    )
+    monkeypatch.setattr(
+        "bot.price_engine.SushiAdapter", lambda web3: mock_sushi_adapter
+    )
 
     # Monkeypatch Web3 provider
     mock_web3 = MagicMock()
@@ -27,10 +30,13 @@ async def test_price_engine_main(monkeypatch, capsys):
 
     # Monkeypatch dotenv
     monkeypatch.setattr("bot.price_engine.load_dotenv", lambda: None)
-    monkeypatch.setattr("bot.price_engine.os.getenv", lambda key: "https://example-rpc-url")
+    monkeypatch.setattr(
+        "bot.price_engine.os.getenv", lambda key: "https://example-rpc-url"
+    )
 
     # Import et exécute `main()` de manière isolée
     from bot import price_engine
+
     await price_engine.main()
 
     # Vérifie la sortie console
