@@ -44,6 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       INFURA_KEY: ${{ secrets.INFURA_KEY }}
+      PYTHONPATH: ${{ github.workspace }}
 
     steps:
       - uses: actions/checkout@v3
