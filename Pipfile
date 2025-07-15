@@ -10,6 +10,7 @@ websockets = "*"
 aiohttp = "*"
 eth-abi = "*"
 web3 = "*"
+cachetools = "*"
 
 [dev-packages]
 black = "*"
