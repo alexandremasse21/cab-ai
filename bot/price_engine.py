@@ -1,8 +1,9 @@
 import asyncio
 import os
 
-from dex.sushiswap import SushiAdapter
-from dex.uniswap_v3 import UniswapV3Adapter
+
+from bot.dex.sushiswap import SushiAdapter
+from bot.dex.uniswap_v3 import UniswapV3Adapter
 from dotenv import load_dotenv
 from web3 import Web3
 
