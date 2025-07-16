@@ -11,6 +11,7 @@ aiohttp = "*"
 eth-abi = "*"
 web3 = "*"
 cachetools = "*"
+requests = "*"
 
 [dev-packages]
 black = "*"
